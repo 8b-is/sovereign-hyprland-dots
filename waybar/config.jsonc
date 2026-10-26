@@ -8,7 +8,8 @@
         "hyprland/window"
     ],
     "modules-center": [
-        "custom/qwave"
+        "custom/qwave",
+        "custom/humayian-music"
     ],
     "modules-right": [
         "pulseaudio",
@@ -43,6 +44,15 @@
         "on-click": "/home/hue/.local/bin/qwave-hypr-hud toggle-ear",
         "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud voice-type",
         "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud ask-aye",
+        "tooltip": true
+    },
+    "custom/humayian-music": {
+        "exec": "/home/hue/.local/bin/qwave-hypr-hud waybar-music",
+        "return-type": "json",
+        "interval": 2,
+        "on-click": "/home/hue/.local/bin/qwave-hypr-hud tokyo-song",
+        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud humayian-mix",
+        "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud markdown-hud",
         "tooltip": true
     },
     "pulseaudio": {

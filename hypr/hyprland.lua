@@ -40,19 +40,13 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("waybar")
     hl.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud boot-session")
 
-    -- Workspace 1 (1:AI-STUDIO): Sovereign AGY Studio (All Permissions · Zero Sandbox · Resumed) + Qwave TUI HUD + /home/hue/8b-is shell
+    -- Workspace 1 (1:AI-STUDIO): Sovereign AGY Studio (All Permissions · Zero Sandbox · Resumed) + Graphical Qwave Markdown HUD + /home/hue/8b-is shell
     hl.exec_cmd("[workspace 1 silent] alacritty -T '8b.is Sovereign AGY Studio (Resumed)' --working-directory /home/hue/8b-is -e /home/hue/.local/bin/qwave-hypr-hud agy-resume")
-    hl.exec_cmd("[workspace 1 silent] alacritty -T 'Qwave Sovereign HUD' -e /home/hue/.local/bin/qwave-hypr-hud status-tui")
+    hl.exec_cmd("[workspace 1 silent] /home/hue/.local/bin/qwave-hypr-hud markdown-hud")
     hl.exec_cmd("[workspace 1 silent] alacritty --working-directory /home/hue/8b-is")
 
     -- Workspace 2 (2:CONSTELLATION): ALEXIAI (:8787), cheet.is/a6000, g8t.is, gemini-diary.8b.is
     hl.exec_cmd("[workspace 2 silent] " .. browser)
-
-    -- Workspace 3 (3:QWAVE-LAB): Audio & ESP32-S3 telemetry terminal
-    hl.exec_cmd("[workspace 3 silent] alacritty -T 'Qwave & ESP32-S3 Telemetry Lab' --working-directory /home/hue/8b-is/qwave -e /home/hue/.local/bin/qwave-hypr-hud status-tui")
-
-    -- Special Scratchpad (special:qwave): SUPER + D dropdown radar
-    hl.exec_cmd("[workspace special:qwave silent] alacritty --class qwave-radar -T 'Qwave Radar Scratchpad' -e /home/hue/.local/bin/qwave-hypr-hud status-tui")
 end)
 
 -------------------------------
@@ -80,7 +74,7 @@ hl.config({
         border_size = 2,
 
         col = {
-            active_border   = { colors = {"0xff00f0ff", "0xffffb800"}, angle = 45 },
+            active_border   = { colors = {"0xff00f0ff", "0xffff9edb", "0xffffb800"}, angle = 45 },
             inactive_border = "0xff1e293b",
         },
 
@@ -90,7 +84,7 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 10,
+        rounding       = 12,
         rounding_power = 2,
 
         active_opacity   = 1.0,
@@ -182,17 +176,20 @@ hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-
 hl.bind(mainMod .. " + V",     hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud voice-type"))
 hl.bind(mainMod .. " + A",     hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud ask-aye"))
 hl.bind(mainMod .. " + M",     hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud toggle-ear"))
-hl.bind(mainMod .. " + D",     hl.dsp.workspace.toggle_special("qwave"))
-hl.bind(mainMod .. " + SHIFT + D", hl.dsp.window.move({ workspace = "special:qwave" }))
+hl.bind(mainMod .. " + D",     hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud markdown-hud"))
+hl.bind(mainMod .. " + SHIFT + D", hl.dsp.workspace.toggle_special("qwave"))
 hl.bind(mainMod .. " + G",     hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud a6000-pulse"))
 hl.bind(mainMod .. " + I",     hl.dsp.exec_cmd("alacritty -T '8b.is Sovereign AGY Studio (Resumed)' --working-directory /home/hue/8b-is -e /home/hue/.local/bin/qwave-hypr-hud agy-resume"))
 hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.exec_cmd("alacritty -T '8b.is Sovereign AGY Studio (Resumed)' --working-directory /home/hue/8b-is -e /home/hue/.local/bin/qwave-hypr-hud agy-resume"))
 hl.bind(mainMod .. " + W",     hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud wifi-menu"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud wifi-tui"))
+hl.bind(mainMod .. " + T",     hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud tokyo-song"))
+hl.bind(mainMod .. " + Y",     hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud humayian-mix"))
 
 -- Core Studio Launchers & Window Controls
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + B",      hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + B",      hl.dsp.exec_cmd("/home/hue/.local/bin/qwave-hypr-hud markdown-hud"))
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + R",      hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + E",      hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + Q",      hl.dsp.window.close())

@@ -1,0 +1,16 @@
+[Unit]
+Description=Qwave Parallel Always-On Acoustic Ear Daemon (MEM|8 + ALEXIAI + Tokyo Beacon Sense)
+After=pipewire.service pipewire-pulse.service wireplumber.service
+
+[Service]
+Type=simple
+Environment="TZ=Asia/Tokyo"
+Environment="XDG_RUNTIME_DIR=/run/user/1000"
+Environment="WIGLE_COUNTRY=JP"
+Environment="WIGLE_TIMEZONE=Asia/Tokyo"
+ExecStart=/home/hue/.local/bin/qwave --ear-daemon
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target

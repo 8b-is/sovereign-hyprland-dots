@@ -1,0 +1,15 @@
+[Unit]
+Description=Liquid-Rust Pure-Rust Marine Salience LFM2.5-Audio-1.5B Loopback Server (127.0.0.1:8786)
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hue/8b-is/liquid-rust
+Environment="HOME=/home/hue"
+Environment="RUST_LOG=info"
+ExecStart=/home/hue/.local/bin/liquid-rust serve --host 127.0.0.1 --port 8786
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target

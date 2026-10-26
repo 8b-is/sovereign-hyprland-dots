@@ -1,0 +1,9 @@
+.env
+*.secret*
+*.key
+*.pem
+.wa-auth/
+target/
+node_modules/
+*.swp
+*~

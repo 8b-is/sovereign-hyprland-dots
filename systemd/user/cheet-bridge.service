@@ -1,0 +1,12 @@
+[Unit]
+Description=Sovereign Loopback SSH Bridge to cheet.is RTX 6000 Ada (Ollama :11436 -> :11434, Liquid-Rust :18786 -> :8786, AlexiAI :18787 -> :8787, WA-Catalog :18795 -> :8795)
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ssh -N -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -o ExitOnForwardFailure=yes -L 127.0.0.1:11436:127.0.0.1:11434 -L 127.0.0.1:18786:127.0.0.1:8786 -L 127.0.0.1:18787:127.0.0.1:8787 -L 127.0.0.1:18795:127.0.0.1:8795 root@49.13.101.247
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

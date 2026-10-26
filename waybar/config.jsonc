@@ -1,0 +1,81 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "spacing": 8,
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "custom/qwave"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "clock"
+    ],
+    "hyprland/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        "persistent-workspaces": {
+            "*": [1, 2, 3, 4]
+        },
+        "format-icons": {
+            "1": "1:AI-STUDIO",
+            "2": "2:CONSTELLATION",
+            "3": "3:QWAVE-LAB",
+            "4": "4:DRA-DOCS",
+            "default": "◈"
+        }
+    },
+    "hyprland/window": {
+        "max-length": 42,
+        "separate-outputs": true
+    },
+    "custom/qwave": {
+        "exec": "/home/hue/.local/bin/qwave-hypr-hud waybar",
+        "return-type": "json",
+        "interval": 2,
+        "on-click": "/home/hue/.local/bin/qwave-hypr-hud toggle-ear",
+        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud voice-type",
+        "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud ask-aye",
+        "tooltip": true
+    },
+    "pulseaudio": {
+        "format": "SPK {volume}% │ {format_source}",
+        "format-bluetooth": "BT {volume}% │ {format_source}",
+        "format-muted": "SPK [0%] │ {format_source}",
+        "format-source": "MIC {volume}%",
+        "format-source-muted": "MIC [-]",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    },
+    "network": {
+        "format-wifi": "WIFI {essid} ({signalStrength}%)",
+        "format-ethernet": "ETH [+]",
+        "format-disconnected": "NET [-]",
+        "tooltip-format": "{ifname} via {gwaddr} · L-Click: Wi-Fi Menu │ R-Click: nmtui │ M-Click: Auto-Heal 1380 MTU",
+        "on-click": "/home/hue/.local/bin/qwave-hypr-hud wifi-menu",
+        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud wifi-tui",
+        "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud wifi-heal"
+    },
+    "cpu": {
+        "interval": 3,
+        "format": "CPU {usage}%",
+        "tooltip": true
+    },
+    "memory": {
+        "interval": 5,
+        "format": "MEM {percentage}%"
+    },
+    "clock": {
+        "timezone": "Asia/Tokyo",
+        "interval": 1,
+        "format": "TYO {:%Y-%m-%d %H:%M:%S JST}",
+        "tooltip-format": "Tokyo Sovereign Studio Clock · {:%A, %Y-%m-%d %H:%M:%S JST}"
+    }
+}

@@ -1,22 +1,28 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 34,
-    "spacing": 8,
+    "height": 30,
+    "spacing": 4,
     "modules-left": [
         "hyprland/workspaces",
         "hyprland/window"
     ],
     "modules-center": [
         "custom/qwave",
+        "custom/ai-compute",
+        "custom/vault",
         "custom/humayian-music"
     ],
     "modules-right": [
+        "custom/agy",
+        "custom/phoenix",
+        "custom/displays",
         "pulseaudio",
         "network",
-        "cpu",
-        "memory",
-        "clock"
+        "bluetooth",
+        "battery",
+        "clock",
+        "custom/control-center"
     ],
     "hyprland/workspaces": {
         "disable-scroll": false,
@@ -26,15 +32,17 @@
             "*": [1, 2, 3, 4]
         },
         "format-icons": {
-            "1": "1:AI-STUDIO",
-            "2": "2:CONSTELLATION",
-            "3": "3:QWAVE-LAB",
-            "4": "4:DRA-DOCS",
+            "1": "1:STUDIO",
+            "2": "2:NET",
+            "3": "3:LAB",
+            "4": "4:MODELS",
+            "5": "5:FLEET",
+            "6": "6:MUSIC",
             "default": "◈"
         }
     },
     "hyprland/window": {
-        "max-length": 42,
+        "max-length": 14,
         "separate-outputs": true
     },
     "custom/qwave": {
@@ -46,46 +54,103 @@
         "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud ask-aye",
         "tooltip": true
     },
+    "custom/ai-compute": {
+        "exec": "/home/hue/.local/bin/qwave-hypr-hud waybar-ai",
+        "return-type": "json",
+        "interval": 4,
+        "on-click": "/home/hue/.local/bin/qwave-hypr-hud ai-menu",
+        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud scratchpad qwave",
+        "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud ai-clip --mode explain",
+        "tooltip": true
+    },
+    "custom/vault": {
+        "exec": "/home/hue/.local/bin/qwave-hypr-hud waybar-vault",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "/home/hue/.local/bin/qwave-hypr-hud vault-menu",
+        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud markdown-hud",
+        "tooltip": true
+    },
     "custom/humayian-music": {
         "exec": "/home/hue/.local/bin/qwave-hypr-hud waybar-music",
         "return-type": "json",
-        "interval": 2,
-        "on-click": "/home/hue/.local/bin/qwave-hypr-hud tokyo-song",
-        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud humayian-mix",
-        "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud markdown-hud",
+        "interval": 3,
+        "on-click": "/home/hue/.local/bin/qwave-hypr-hud music-toggle",
+        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud music-menu",
+        "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud music-next",
         "tooltip": true
     },
+    "custom/agy": {
+        "format": "✦ AGY",
+        "tooltip": true,
+        "tooltip-format": "Antigravity AGY Studio · L-Click: 8b-is Resumed │ R-Click: macCracken",
+        "on-click": "alacritty --class agy-terminal -T '8b.is Sovereign AGY Studio (Resumed)' --working-directory /home/hue/8b-is -e /home/hue/.local/bin/qwave-hypr-hud agy-resume",
+        "on-click-right": "alacritty --class agy-terminal -T 'Antigravity AGY · macCracken' --working-directory /home/hue/source/macCracken -e /home/hue/.local/bin/agy --dangerously-skip-permissions --sandbox=false --continue"
+    },
+    "custom/phoenix": {
+        "exec": "/home/hue/.local/bin/qwave-hypr-hud waybar-phoenix",
+        "return-type": "json",
+        "interval": 2,
+        "on-click": "/home/hue/.local/bin/qwave-hypr-hud phoenix-preset next",
+        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud phoenix-menu",
+        "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud phoenix-toggle",
+        "tooltip": true
+    },
+    "custom/displays": {
+        "format": "MON",
+        "tooltip": true,
+        "tooltip-format": "Monitor Layout & Rotation (nwg-displays) · L-Click: Arrange/Portrait/Scale │ R-Click: wdisplays",
+        "on-click": "nwg-displays",
+        "on-click-right": "wdisplays"
+    },
     "pulseaudio": {
-        "format": "SPK {volume}% │ {format_source}",
-        "format-bluetooth": "BT {volume}% │ {format_source}",
-        "format-muted": "SPK [0%] │ {format_source}",
-        "format-source": "MIC {volume}%",
-        "format-source-muted": "MIC [-]",
-        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "format": "VOL {volume}%",
+        "format-bluetooth": "BT {volume}%",
+        "format-muted": "MUTE",
+        "tooltip-format": "Audio ({desc}) · L-Click: Noctalia Audio Mixer │ M-Click: Mute Speaker │ R-Click: Mute Mic",
+        "on-click": "noctalia msg panel-toggle control-center audio",
+        "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
     },
     "network": {
-        "format-wifi": "WIFI {essid} ({signalStrength}%)",
+        "format-wifi": "WIFI {essid} {signalStrength}%",
         "format-ethernet": "ETH [+]",
-        "format-disconnected": "NET [-]",
-        "tooltip-format": "{ifname} via {gwaddr} · L-Click: Wi-Fi Menu │ R-Click: nmtui │ M-Click: Auto-Heal 1380 MTU",
-        "on-click": "/home/hue/.local/bin/qwave-hypr-hud wifi-menu",
-        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud wifi-tui",
+        "format-disconnected": "WIFI [-]",
+        "max-length": 18,
+        "tooltip-format": "{ifname} ({essid}) via {gwaddr} · L-Click: Noctalia Wi-Fi Menu │ R-Click: Quick Wi-Fi Switcher │ M-Click: Auto-Heal 1380 MTU",
+        "on-click": "noctalia msg panel-toggle control-center network",
+        "on-click-right": "/home/hue/.local/bin/qwave-hypr-hud wifi-menu --dmenu",
         "on-click-middle": "/home/hue/.local/bin/qwave-hypr-hud wifi-heal"
     },
-    "cpu": {
-        "interval": 3,
-        "format": "CPU {usage}%",
-        "tooltip": true
+    "bluetooth": {
+        "format": "BT",
+        "format-connected": "BT {device_alias}",
+        "format-disabled": "BT [-]",
+        "format-off": "BT [-]",
+        "max-length": 10,
+        "tooltip-format": "Bluetooth · L-Click: Noctalia Bluetooth Menu │ R-Click: Toggle Bluetooth",
+        "on-click": "noctalia msg panel-toggle control-center bluetooth",
+        "on-click-right": "noctalia msg bluetooth-toggle"
     },
-    "memory": {
-        "interval": 5,
-        "format": "MEM {percentage}%"
+    "battery": {
+        "format": "BAT {capacity}%",
+        "format-charging": "CHG {capacity}%",
+        "format-plugged": "AC {capacity}%",
+        "tooltip-format": "Battery {capacity}% · L-Click: Noctalia Power & Battery Menu",
+        "on-click": "noctalia msg panel-toggle control-center power"
     },
     "clock": {
-        "timezone": "Asia/Tokyo",
-        "interval": 1,
-        "format": "TYO {:%Y-%m-%d %H:%M:%S JST}",
-        "tooltip-format": "Tokyo Sovereign Studio Clock · {:%A, %Y-%m-%d %H:%M:%S JST}"
+        "interval": 5,
+        "format": "{:%m-%d %H:%M}",
+        "tooltip-format": "Sovereign Studio Clock · {:%A, %Y-%m-%d %H:%M %Z} · L-Click: Calendar",
+        "on-click": "noctalia msg panel-toggle control-center calendar"
+    },
+    "custom/control-center": {
+        "format": "◈",
+        "tooltip": true,
+        "tooltip-format": "Noctalia Control Center · L-Click: Control Center │ R-Click: Wi-Fi Menu │ M-Click: Noctalia Settings",
+        "on-click": "noctalia msg panel-toggle control-center",
+        "on-click-right": "noctalia msg panel-toggle control-center network",
+        "on-click-middle": "noctalia msg settings-toggle"
     }
 }

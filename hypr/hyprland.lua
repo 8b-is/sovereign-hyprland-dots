@@ -1,60 +1,68 @@
 -- ══════════════════════════════════════════════════════════════════════════════
--- SOVEREIGN 8b.is × QWAVE × ALEXIAI AI DEVELOPMENT HYPRLAND WORKSTATION (Lua)
+-- SOVEREIGN 8b.is × QWAVE × MACCRACKEN × NOCTALIA AI WORKSTATION (Lua)
 -- Zero-Password Boot · 100% Pure-Rust HUD · C64 64KB Ring · Zero-Float Salience
--- Constellation Ink Palette (#05060a / #00f0ff / #62e6c9 / #e8b05c / #b48bff)
--- Validated for Hyprland 0.57.0+ Lua Engine
+-- Constellation Ink × Neon Jungle × Catppuccin Mocha (#05060a / #00f0ff / #cba6f7 / #62e6c9 / #e8b05c)
+-- hapi: drift-audit 2026-11-06 — merged macCracken/dotfiles (hyprlock, hypridle,
+--       mocha, neon_jungle glass blur, 6-curve animations) + Noctalia AGY/BongoCat dock
+-- Validated for Hyprland 0.57.1+ Lua Engine
 -- ══════════════════════════════════════════════════════════════════════════════
 
 ------------------
 ---- MONITORS ----
 ------------------
 hl.monitor({
-    output   = "eDP-1",
-    mode     = "preferred",
-    position = "auto",
-    scale    = 2,
-})
-
-hl.monitor({
-    output   = "DP-1",
-    mode     = "6016x3384@60",
-    position = "auto",
-    scale    = 2,
-})
-
-hl.monitor({
     output   = "DP-2",
-    mode     = "preferred",
-    position = "auto",
-    scale    = 2,
+    disabled = true,
 })
 
 hl.monitor({
-    output   = "DP-3",
-    mode     = "preferred",
-    position = "auto",
-    scale    = 2,
+    output    = "desc:Apple Computer Inc ProDisplayXDR 0x0F090B03",
+    mode      = "5120x2880@60",
+    position  = "2560x0",
+    scale     = 2,
+    vrr       = 0,
+    transform = 3,
 })
 
 hl.monitor({
-    output   = "DP-6",
-    mode     = "6016x3384@60",
-    position = "auto",
-    scale    = 2,
+    output    = "desc:Apple Computer Inc ProDisplayXDR 0x340F0A03",
+    mode      = "preferred",
+    position  = "0x1080",
+    scale     = 2,
+    vrr       = 0,
+    transform = 0,
 })
 
 hl.monitor({
     output   = "HDMI-A-1",
     mode     = "3840x2160@60",
-    position = "auto",
+    position = "0x0",
     scale    = 2,
+    vrr      = 0,
+})
+
+hl.monitor({
+    output   = "HDMI-A-2",
+    mode     = "3840x2160@60",
+    position = "4000x0",
+    scale    = 2,
+    vrr      = 0,
+})
+
+hl.monitor({
+    output   = "HDMI-A-3",
+    mode     = "3840x2160@60",
+    position = "4000x0",
+    scale    = 2,
+    vrr      = 0,
 })
 
 hl.monitor({
     output   = "",
     mode     = "preferred",
     position = "auto",
-    scale    = 1,
+    scale    = 2,
+    vrr      = 0,
 })
 
 -- Load user monitor & workspace layouts saved by nwg-displays (if present)
@@ -67,7 +75,7 @@ pcall(dofile, "/home/hue/.config/hypr/workspaces.lua")
 local hud         = "/home/hue/.local/bin/qwave-hypr-hud"
 local terminal    = "alacritty --working-directory /home/hue/8b-is"
 local fileManager = "alacritty -e /home/hue/.local/bin/qwave /home/hue/8b-is/qwave/README.md"
-local menu        = "sh -c 'noctalia msg panel-toggle launcher || fuzzel || wofi --show drun'"
+local menu        = "sh -c 'noctalia msg panel-toggle launcher || wofi --show drun || fuzzel'"
 local browser     = "chromium http://127.0.0.1:8787 https://cheet.is/a6000 https://g8t.is https://gemini-diary.8b.is"
 
 -------------------
@@ -75,9 +83,10 @@ local browser     = "chromium http://127.0.0.1:8787 https://cheet.is/a6000 https
 -------------------
 hl.on("hyprland.start", function ()
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
-    hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
     hl.exec_cmd(hud .. " boot-session")
     hl.exec_cmd(hud .. " smoke-bg 0")
+    hl.exec_cmd("sh -c 'pidof hypridle >/dev/null 2>&1 || hypridle'")
 
     -- Workspace 1 (1:STUDIO): Interactive /home/hue/8b-is shell (AGY Studio & Qwave HUD launched idempotently by boot-session)
     hl.exec_cmd("[workspace 1 silent] " .. terminal)
@@ -89,6 +98,7 @@ end)
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
+hl.env("AQ_DRM_DEVICES", "/dev/dri/by-path/pci-0000:00:02.0-card:/dev/dri/by-path/pci-0000:01:00.0-card")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
@@ -111,19 +121,19 @@ hl.workspace_rule({ workspace = "4", default_name = "4:MODELS",        persisten
 hl.workspace_rule({ workspace = "5", default_name = "5:FLEET",         persistent = true })
 hl.workspace_rule({ workspace = "6", default_name = "6:MUSIC",         persistent = true })
 
-------------------------------------------------------
----- LOOK AND FEEL (Constellation Ink 8b.is Theme) ---
-------------------------------------------------------
+--------------------------------------------------------------------------
+---- LOOK AND FEEL (Constellation Ink × Neon Jungle × Mocha Glass) -------
+--------------------------------------------------------------------------
 hl.config({
     general = {
-        gaps_in  = 5,
-        gaps_out = 10,
+        gaps_in  = 6,
+        gaps_out = 12,
 
         border_size = 2,
 
         col = {
-            active_border   = { colors = {"0xff00f0ff", "0xffb48bff", "0xff62e6c9", "0xffe8b05c"}, angle = 45 },
-            inactive_border = "0xff1e293b",
+            active_border   = { colors = {"0xff00f0ff", "0xffcba6f7", "0xff62e6c9", "0xffe8b05c"}, angle = 45 },
+            inactive_border = "0xff313244",
         },
 
         resize_on_border = true,
@@ -132,23 +142,26 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 10,
+        rounding       = 12,
         rounding_power = 2,
 
-        active_opacity   = 1,
-        inactive_opacity = 1,
+        active_opacity   = 1.0,
+        inactive_opacity = 1.0,
 
         shadow = {
             enabled      = true,
-            range        = 12,
+            range        = 14,
             render_power = 3,
             color        = 0x6605060a,
         },
 
         blur = {
-            enabled = false,
-            size    = 4,
-            passes  = 1,
+            enabled           = false,
+            size              = 4,
+            passes            = 1,
+            new_optimizations = true,
+            ignore_opacity    = true,
+            vibrancy          = 0.22,
         },
     },
 
@@ -157,18 +170,32 @@ hl.config({
     },
 })
 
-hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
-hl.curve("snappy", { type = "spring", mass = 1, stiffness = 280, dampening = 26 })
+-- macCracken/dotfiles 6-curve + spring animation suite
+hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1} } })
+hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1} } })
+hl.curve("linear",         { type = "bezier", points = { {0, 0},       {1, 1}    } })
+hl.curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1} } })
+hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}  } })
+hl.curve("snappy",         { type = "spring", mass = 1, stiffness = 280, dampening = 26 })
 
-hl.animation({ leaf = "global",        enabled = true, speed = 8, bezier = "default" })
-hl.animation({ leaf = "border",        enabled = true, speed = 5, bezier = "default" })
-hl.animation({ leaf = "windows",       enabled = true, speed = 4, spring = "snappy" })
-hl.animation({ leaf = "windowsIn",     enabled = true, speed = 4, spring = "snappy",  style = "popin 88%" })
-hl.animation({ leaf = "windowsOut",    enabled = true, speed = 2, bezier = "linear",  style = "popin 88%" })
-hl.animation({ leaf = "fade",          enabled = true, speed = 3, bezier = "default" })
-hl.animation({ leaf = "layers",        enabled = true, speed = 3, bezier = "default", style = "fade" })
-hl.animation({ leaf = "workspaces",    enabled = true, speed = 2, bezier = "default", style = "fade" })
-hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 3, spring = "snappy", style = "slidevert" })
+hl.animation({ leaf = "global",           enabled = true, speed = 10,   bezier = "default" })
+hl.animation({ leaf = "border",           enabled = true, speed = 5.39, bezier = "easeOutQuint" })
+hl.animation({ leaf = "windows",          enabled = true, speed = 4.79, spring = "snappy" })
+hl.animation({ leaf = "windowsIn",        enabled = true, speed = 4.1,  spring = "snappy",       style = "popin 87%" })
+hl.animation({ leaf = "windowsOut",       enabled = true, speed = 1.49, bezier = "linear",       style = "popin 87%" })
+hl.animation({ leaf = "fadeIn",           enabled = true, speed = 1.73, bezier = "almostLinear" })
+hl.animation({ leaf = "fadeOut",          enabled = true, speed = 1.46, bezier = "almostLinear" })
+hl.animation({ leaf = "fade",             enabled = true, speed = 3.03, bezier = "quick" })
+hl.animation({ leaf = "layers",           enabled = true, speed = 3.81, bezier = "easeOutQuint" })
+hl.animation({ leaf = "layersIn",         enabled = true, speed = 4,    bezier = "easeOutQuint", style = "fade" })
+hl.animation({ leaf = "layersOut",        enabled = true, speed = 1.5,  bezier = "linear",       style = "fade" })
+hl.animation({ leaf = "fadeLayersIn",     enabled = true, speed = 1.79, bezier = "almostLinear" })
+hl.animation({ leaf = "fadeLayersOut",    enabled = true, speed = 1.39, bezier = "almostLinear" })
+hl.animation({ leaf = "workspaces",       enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspacesIn",     enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspacesOut",    enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 3,    spring = "snappy",       style = "slidevert" })
+hl.animation({ leaf = "zoomFactor",       enabled = true, speed = 7,    bezier = "quick" })
 
 hl.config({
     dwindle = {
@@ -182,10 +209,10 @@ hl.config({
         fullscreen_on_one_column = true,
     },
     misc = {
-        force_default_wallpaper = 0,
-        disable_hyprland_logo   = true,
+        force_default_wallpaper  = 0,
+        disable_hyprland_logo    = true,
         disable_splash_rendering = true,
-        vrr                     = 1,
+        vrr                      = 0,
     },
     input = {
         kb_layout    = "us",
@@ -219,14 +246,26 @@ hl.bind(mainMod .. " + M",              hl.dsp.exec_cmd(hud .. " toggle-ear"))
 hl.bind(mainMod .. " + SHIFT + M",      hl.dsp.exec_cmd("nwg-displays"))
 hl.bind(mainMod .. " + D",              hl.dsp.exec_cmd(hud .. " markdown-hud"))
 hl.bind(mainMod .. " + G",              hl.dsp.exec_cmd(hud .. " a6000-pulse"))
-hl.bind(mainMod .. " + I",              hl.dsp.exec_cmd("alacritty -T '8b.is Sovereign AGY Studio (Resumed)' --working-directory /home/hue/8b-is -e " .. hud .. " agy-resume"))
-hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.exec_cmd("alacritty -T '8b.is Sovereign AGY Studio (Resumed)' --working-directory /home/hue/8b-is -e " .. hud .. " agy-resume"))
+hl.bind(mainMod .. " + I",              hl.dsp.exec_cmd("alacritty --class agy-terminal -T '8b.is Sovereign AGY Studio (Resumed)' --working-directory /home/hue/8b-is -e " .. hud .. " agy-resume"))
+hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.exec_cmd("alacritty --class agy-terminal -T '8b.is Sovereign AGY Studio (Resumed)' --working-directory /home/hue/8b-is -e " .. hud .. " agy-resume"))
 hl.bind(mainMod .. " + W",              hl.dsp.exec_cmd(hud .. " wifi-menu"))
 hl.bind(mainMod .. " + SHIFT + W",      hl.dsp.exec_cmd(hud .. " wifi-tui"))
 hl.bind(mainMod .. " + N",              hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
 hl.bind(mainMod .. " + U",              hl.dsp.exec_cmd(hud .. " vault-menu"))
 hl.bind(mainMod .. " + T",              hl.dsp.exec_cmd(hud .. " tokyo-song"))
 hl.bind(mainMod .. " + Y",              hl.dsp.exec_cmd(hud .. " humayian-mix"))
+hl.bind(mainMod .. " + SHIFT + P",      hl.dsp.exec_cmd(hud .. " phoenix-menu"))
+hl.bind(mainMod .. " + CTRL + P",       hl.dsp.exec_cmd(hud .. " phoenix-preset next"))
+
+-- 1b. Noctalia Plugins & macCracken Lock / Wallpaper / Notes / Docker / Process Monitor
+hl.bind(mainMod .. " + SHIFT + ESCAPE", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. " + CTRL + B",       hl.dsp.exec_cmd("noctalia msg bar-toggle"))
+hl.bind(mainMod .. " + CTRL + W",       hl.dsp.exec_cmd("noctalia msg desktop-widgets-toggle"))
+hl.bind(mainMod .. " + CTRL + N",       hl.dsp.exec_cmd("noctalia msg panel-toggle noctalia/notes:panel"))
+hl.bind(mainMod .. " + CTRL + D",       hl.dsp.exec_cmd("noctalia msg panel-toggle 8bury/mini-docker:manager"))
+hl.bind(mainMod .. " + CTRL + M",       hl.dsp.exec_cmd("noctalia msg panel-toggle yahya637/process-monitor:panel"))
+hl.bind(mainMod .. " + period",         hl.dsp.exec_cmd("noctalia msg launcher-open /kaomoji"))
+hl.bind(mainMod .. " + ALT + W",        hl.dsp.exec_cmd("noctalia msg wallpaper-random"))
 
 -- 2. Self-Healing AI Scratchpads (Dropdown Terminal, Live Qwave/AI Radar, Live GPU/CPU btop)
 hl.bind(mainMod .. " + grave",          hl.dsp.exec_cmd(hud .. " scratchpad term"))
@@ -332,6 +371,14 @@ hl.window_rule({
         pin        = false,
     },
     no_focus = true,
+})
+
+hl.window_rule({
+    name   = "float-agy-terminal",
+    match  = { class = "agy-terminal" },
+    float  = true,
+    size   = "1280 800",
+    center = true,
 })
 
 hl.window_rule({

@@ -5,7 +5,7 @@ After=default.target
 [Service]
 Type=simple
 WorkingDirectory=/home/hue/.local/share/qwave/models
-ExecStart=/usr/bin/whisper-server -m /home/hue/.local/share/qwave/models/ggml-large-v3-turbo-q5_0.bin --host 127.0.0.1 --port 8785 -t 14 -sns -nf -mc 0 -bo 1 -bs 1 -ac 128 --prompt "Hey Aye, Qwave, qUltraKotoro, Hyprland, Alexiai, Alexandra, Aurora, Sovereign, MEM8, 8b-is, Waybar, WUPZ."
+ExecStart=/usr/bin/whisper-server -m /home/hue/.local/share/qwave/models/ggml-large-v3-turbo-q5_0.bin --host 127.0.0.1 --port 8785 -t 14 -sns -nf -nth 0.65 -lpt -0.50 -mc 0 -bo 1 -bs 1 --prompt "Hey Aye, Qwave, qUltraKotoro, Hyprland, Alexiai, Alexandra, Aurora, Sovereign, MEM8, 8b-is, Waybar, WUPZ."
 Restart=always
 RestartSec=2
 Nice=-5

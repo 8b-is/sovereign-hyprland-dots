@@ -1,0 +1,12 @@
+[Unit]
+Description=MEMNET/1.0 Async Compute & Model-Sharing Sanctuary (:8788 · 0o0-SSU + SpherePop)
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/home/hue/.local/bin/memnet serve-sanctuary-async --bind 0.0.0.0:8788 --node sb-rtx4070
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target
